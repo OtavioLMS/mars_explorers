@@ -1,4 +1,6 @@
 defmodule MarsExplorer.Probe do
+  alias MarsExplorer.MissionControl, as: MissionControl
+
   @moduledoc """
   probe module represents the probe receiving commands
   """
@@ -61,5 +63,7 @@ defmodule MarsExplorer.Probe do
         "E" -> %{current_probe_status | x_position: current_probe_status.x_position + 1}
         "W" -> %{current_probe_status | x_position: current_probe_status.x_position - 1}
       end
+
+    MissionControl.health_check(new_probe_status)
   end
 end

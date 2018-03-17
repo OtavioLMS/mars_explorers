@@ -2,6 +2,12 @@ defmodule MarsExplorer.ProbeTest do
   use ExUnit.Case
   doctest MarsExplorer.Probe
 
+  setup_all do
+    MarsExplorer.MissionControl.start_link(%{x_boundary: 5, y_boundary: 5})
+
+    :ok
+  end
+
   test "turns left" do
     assert MarsExplorer.Probe.move(%{orientation: "N"}, "L") == %{orientation: "W"}
     assert MarsExplorer.Probe.move(%{orientation: "W"}, "L") == %{orientation: "S"}
