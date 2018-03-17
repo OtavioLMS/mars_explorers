@@ -17,14 +17,33 @@ defmodule MarsExplorer.ProbeTest do
   end
 
   test "steps into the correct directions" do
-    assert MarsExplorer.Probe.move(%{orientation: "N", y_position: 3}, "M") == %{orientation: "N", y_position: 4}
-    assert MarsExplorer.Probe.move(%{orientation: "E", x_position: 3}, "M") == %{orientation: "E", x_position: 4}
-    assert MarsExplorer.Probe.move(%{orientation: "S", y_position: 3}, "M") == %{orientation: "S", y_position: 2}
-    assert MarsExplorer.Probe.move(%{orientation: "W", x_position: 3}, "M") == %{orientation: "W", x_position: 2}
+    assert MarsExplorer.Probe.move(%{orientation: "N", x_position: 3, y_position: 3}, "M") == %{
+             orientation: "N",
+             x_position: 3,
+             y_position: 4
+           }
+
+    assert MarsExplorer.Probe.move(%{orientation: "E", x_position: 3, y_position: 3}, "M") == %{
+             orientation: "E",
+             x_position: 4,
+             y_position: 3
+           }
+
+    assert MarsExplorer.Probe.move(%{orientation: "S", x_position: 3, y_position: 3}, "M") == %{
+             orientation: "S",
+             x_position: 3,
+             y_position: 2
+           }
+
+    assert MarsExplorer.Probe.move(%{orientation: "W", x_position: 3, y_position: 3}, "M") == %{
+             orientation: "W",
+             x_position: 2,
+             y_position: 3
+           }
   end
 
   test "receives multiple commands" do
-    assert MarsExplorer.Probe.move(%{orientation: "N", y_position: 3, x_position: 3}, "MLMMRM") == %{orientation: "N", y_position: 5, x_position: 1}
+    assert MarsExplorer.Probe.move(%{orientation: "N", y_position: 3, x_position: 3}, "MLMMRM") ==
+             %{orientation: "N", y_position: 5, x_position: 1}
   end
-
 end
