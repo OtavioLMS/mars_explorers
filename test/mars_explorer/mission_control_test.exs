@@ -20,34 +20,40 @@ defmodule MarsExplorer.MissionControlTest do
   test "return unhealthy probe when out of bounds" do
     MarsExplorer.MissionControl.start_link(%{x_boundary: 23, y_boundary: 34})
 
-    assert MarsExplorer.MissionControl.health_check(%MarsExplorer.ProbeStatus{
-             healthy: true,
-             orientation: "N",
-             x_position: -1,
-             y_position: 10
-           }) == %MarsExplorer.ProbeStatus{
-             healthy: false,
-             orientation: "UNKNOWN",
-             x_position: -1,
-             y_position: 10
-           }
+    test_probe = %MarsExplorer.ProbeStatus{
+      healthy: true,
+      orientation: "N",
+      x_position: -1,
+      y_position: 10
+    }
+
+    assert MarsExplorer.MissionControl.health_check(test_probe, test_probe) ==
+             %MarsExplorer.ProbeStatus{
+               healthy: false,
+               orientation: "UNKNOWN",
+               x_position: -1,
+               y_position: 10
+             }
   end
 
-  test "return unhealthy probe when hits another probe" do
+  test "return unhealthy probe when its path is blocked by another probe" do
     MarsExplorer.MissionControl.start_link(%{x_boundary: 23, y_boundary: 34})
     MarsExplorer.MissionControl.run_probe(8, 9, "N", "")
 
-    assert MarsExplorer.MissionControl.health_check(%MarsExplorer.ProbeStatus{
-             healthy: true,
-             orientation: "S",
-             x_position: 8,
-             y_position: 9
-           }) == %MarsExplorer.ProbeStatus{
-             healthy: false,
-             orientation: "UNKNOWN",
-             x_position: 8,
-             y_position: 9
-           }
+    test_probe = %MarsExplorer.ProbeStatus{
+      healthy: true,
+      orientation: "S",
+      x_position: 8,
+      y_position: 9
+    }
+
+    assert MarsExplorer.MissionControl.health_check(test_probe, %{test_probe | y_position: 10}) ==
+             %MarsExplorer.ProbeStatus{
+               healthy: false,
+               orientation: "PATH_BLOCKED",
+               x_position: 8,
+               y_position: 10
+             }
   end
 
   test "return original probe when all is ok" do
@@ -59,6 +65,6 @@ defmodule MarsExplorer.MissionControlTest do
     }
 
     MarsExplorer.MissionControl.start_link(%{x_boundary: 23, y_boundary: 34})
-    assert MarsExplorer.MissionControl.health_check(test_probe) == test_probe
+    assert MarsExplorer.MissionControl.health_check(test_probe, test_probe) == test_probe
   end
 end

@@ -45,7 +45,7 @@ defmodule MarsExplorer.MissionControl do
 
   receives the expected next position of the probe
   """
-  def health_check(%{x_position: x, y_position: y} = probe_data) do
+  def health_check(%{x_position: x, y_position: y} = probe_data, last_valid_probe_data) do
     plateau = GenServer.call(MarsExplorer.MissionDatabase, {:plateau_limits})
     position_occupied = GenServer.call(MarsExplorer.MissionDatabase, {:occupied, x, y})
 
@@ -55,10 +55,7 @@ defmodule MarsExplorer.MissionControl do
         new_probe_status
 
       position_occupied ->
-        new_probe_status = %{probe_data | orientation: "UNKNOWN", healthy: false}
-        GenServer.cast(MarsExplorer.MissionDatabase, [:delete_probe, x, y])
-        GenServer.cast(MarsExplorer.MissionDatabase, [:add_probe, new_probe_status])
-        new_probe_status
+        %{last_valid_probe_data | orientation: "PATH_BLOCKED", healthy: false}
 
       true ->
         probe_data

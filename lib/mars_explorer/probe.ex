@@ -64,6 +64,6 @@ defmodule MarsExplorer.Probe do
         "W" -> %{current_probe_status | x_position: current_probe_status.x_position - 1}
       end
 
-    MissionControl.health_check(new_probe_status)
+    MissionControl.health_check(new_probe_status, current_probe_status)
   end
 end

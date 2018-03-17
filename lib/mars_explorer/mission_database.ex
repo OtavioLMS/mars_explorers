@@ -44,7 +44,7 @@ defmodule MarsExplorer.MissionDatabase do
   end
 
   @doc """
-    handles the ynchronous call to save the last position of the probe
+    handles the synchronous call to save the last position of the probe
     when it ends the commands it received or the predicted position of a lost probe
   """
   def handle_cast([:add_probe, probe], current_state) do
