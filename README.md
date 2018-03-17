@@ -54,7 +54,7 @@ this probe stopped because of an obstacle -> 6 1
 ```
 
 ## Execution details
- 
+
 ### To execute the tests:
 
 ```
@@ -67,3 +67,8 @@ mix test
 mix escript.build
 ./mars_explorer
 ```
+
+# Important Observations
+
+if your git is set with autocrlf the code might fail on windows machines, if it happens edit the
+input txt file of your preferred environment manually to make sure its lines end only with \n instead of the microsoft standard \r\n
