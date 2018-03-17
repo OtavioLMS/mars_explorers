@@ -42,6 +42,13 @@ defmodule MarsExplorer.ProbeTest do
            }
   end
 
+  test "do nothing if unhealthy and ignore any other invalid parameters" do
+    assert MarsExplorer.Probe.move(
+             %{orientation: 2, y_position: "aa", x_position: 3, healthy: false},
+             "jlfkerjlfejrMLMMRM"
+           ) == %{orientation: 2, y_position: "aa", x_position: 3, healthy: false}
+  end
+
   test "receives multiple commands" do
     assert MarsExplorer.Probe.move(%{orientation: "N", y_position: 3, x_position: 3}, "MLMMRM") ==
              %{orientation: "N", y_position: 5, x_position: 1}
