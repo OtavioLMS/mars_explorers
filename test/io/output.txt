@@ -1,0 +1,5 @@
+1 3 N
+5 1 E
+this probe was lost -> 0 -1
+4 1 E
+this probe stopped because of an obstacle -> 6 1 
