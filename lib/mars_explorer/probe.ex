@@ -18,42 +18,42 @@ defmodule MarsExplorer.Probe do
       %{orientation: "N", x_position: 2, y_position: 5}
 
   """
-  def move(current_probe, "L" <> command_queue) do
-    change_orientation(current_probe, :plus) |> move(command_queue)
+  def move(current_probe_status, "L" <> command_queue) do
+    change_orientation(current_probe_status, :plus) |> move(command_queue)
   end
 
-  def move(current_probe, "R" <> command_queue) do
-    change_orientation(current_probe, :minus) |> move(command_queue)
+  def move(current_probe_status, "R" <> command_queue) do
+    change_orientation(current_probe_status, :minus) |> move(command_queue)
   end
 
-  def move(current_probe, "M" <> command_queue) do
-    step(current_probe) |> move(command_queue)
+  def move(current_probe_status, "M" <> command_queue) do
+    step(current_probe_status) |> move(command_queue)
   end
 
-  def move(current_probe, "") do
-    current_probe
+  def move(current_probe_status, "") do
+    current_probe_status
   end
 
-  defp change_orientation(current_probe, :plus) do
-    %{"N" => "W", "W" => "S", "S" => "E", "E" => "N"}[current_probe.orientation] 
-    |> set_new_orientation(current_probe)
+  defp change_orientation(current_probe_status, :plus) do
+    %{"N" => "W", "W" => "S", "S" => "E", "E" => "N"}[current_probe_status.orientation] 
+    |> set_new_orientation(current_probe_status)
   end
 
-  defp change_orientation(current_probe, :minus) do
-    %{"N" => "E", "E" => "S", "S" => "W", "W" => "N"}[current_probe.orientation] 
-    |> set_new_orientation(current_probe)
+  defp change_orientation(current_probe_status, :minus) do
+    %{"N" => "E", "E" => "S", "S" => "W", "W" => "N"}[current_probe_status.orientation] 
+    |> set_new_orientation(current_probe_status)
   end
 
-  defp set_new_orientation(orientation, current_probe) do
-    %{current_probe | orientation: orientation}
+  defp set_new_orientation(orientation, current_probe_status) do
+    %{current_probe_status | orientation: orientation}
   end
 
-  defp step(current_probe) do
-    case current_probe.orientation do
-      "N" -> %{current_probe | y_position: current_probe.y_position + 1}
-      "S" -> %{current_probe | y_position: current_probe.y_position - 1}
-      "E" -> %{current_probe | x_position: current_probe.x_position + 1}
-      "W" -> %{current_probe | x_position: current_probe.x_position - 1}
+  defp step(current_probe_status) do
+    new_probe_status = case current_probe_status.orientation do
+      "N" -> %{current_probe_status | y_position: current_probe_status.y_position + 1}
+      "S" -> %{current_probe_status | y_position: current_probe_status.y_position - 1}
+      "E" -> %{current_probe_status | x_position: current_probe_status.x_position + 1}
+      "W" -> %{current_probe_status | x_position: current_probe_status.x_position - 1}
     end
   end
 end
