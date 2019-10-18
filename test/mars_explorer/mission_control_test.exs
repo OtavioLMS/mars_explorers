@@ -56,7 +56,7 @@ defmodule MarsExplorer.MissionControlTest do
              }
   end
 
-  test "return original probe when all is ok" do
+  test "return original probe when all is OK" do
     test_probe = %MarsExplorer.ProbeStatus{
       healthy: true,
       orientation: "S",

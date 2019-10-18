@@ -1,28 +1,25 @@
 # MarsExplorer
 ## Elixir 1.6.2 (compiled with OTP 19)
-
 NASA is sending probes to inspect plateaus in mars,
-this a fictional application of that process made in elixir considering the probes move within a grid
+this a fictional application of that process made in elixir considering the probes move within a grid.
 
-## Input
-the first line of the file must have two integers representing the max coordinates of the plateau 
+## INPUT
+The first line of the file must have two integers representing the max coordinates of the plateau.
 ```
 5 9
 ```
-
-the following lines must come in pairs of two representing a probe and the commands it receives
+The following lines must come in pairs of two representing a probe and the commands it receives.
 ```
 1 2 N
 LMLMLMLMM
 ```
+In the production environment this program will look for a file called input.txt on the io folder.
 
-in the production environment this program will look for a file called input.txt on the io folder
+In the development environment the file will be called input.txt.example.
 
-in the development environment thefile will be called input.txt.example
+For the test environment the file is input txt on the test/io folder.
 
-for the test environment the file is input txt on the test/io folder
-
-### full input example:
+### Full input example:
 
 ```
 5 9
@@ -38,12 +35,12 @@ MMM
 MMM
 ```
 
-## Output
-the output will have the same directory and extension as its input counterpart for each environment, the difference being only thet the file name will be output instead of input
+## OUTPUT
+The output will have the same directory and extension as its input counterpart for each environment, the difference being only thet the file name will be output instead of input.
 
-probes that go beyond the limits of the plateau(higher than set on the input file or lower than zero for either axis) will be indicated on the output, so will probes whose path is blocked by previously executed probes
+Probes that go beyond the limits of the plateau (higher than set on the input file or lower than zero for either axis) will be indicated on the output, so will probes whose path is blocked by previously executed probes.
 
-### output example:
+### Output Example:
 
 ```
 1 3 N
@@ -53,7 +50,7 @@ this probe was lost -> 0 -1
 this probe stopped because of an obstacle -> 6 1 
 ```
 
-## Execution details
+## EXECUTION DETAILS
 
 ### To execute the tests:
 
@@ -68,7 +65,5 @@ mix escript.build
 ./mars_explorer
 ```
 
-# Important Observations
-
-if your git is set with autocrlf the code might fail on windows machines, if it happens edit the
-input txt file of your preferred environment manually to make sure its lines end only with \n instead of the microsoft standard \r\n
+## IMPORTANT OBSERVATIONS
+If your git is set with autocrlf the code might fail on Windows machines, if it happens edit the input txt file of your preferred environment manually to make sure its lines end only with instead of the Microsoft standard.
